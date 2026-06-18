@@ -20,3 +20,11 @@ class PercentageDiscount(Discount):
     def apply(self, subtotal: Money, context: DiscountContext) -> Money:
         # TODO Day 1
         raise NotImplementedError("Day 1: implement PercentageDiscount.apply")
+class PercentageDiscount(Discount):
+    def __init__(self, percentage: Decimal) -> None:
+        if not (Decimal("0.00") <= percentage <= Decimal("1.00")):
+            raise ValueError("Percentage must be between 0.00 (0%) and 1.00 (100%)")
+        self.percentage = percentage
+
+    def apply(self, subtotal: Money, context: DiscountContext) -> Money:
+        return subtotal * self.percentage

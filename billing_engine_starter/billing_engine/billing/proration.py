@@ -28,6 +28,7 @@ from enum import Enum
 from typing import NamedTuple, Optional
 
 from billing_engine.models import LedgerEntry, LedgerDirection, SubscriptionStatus, Invoice
+
 class DunningState(Enum):
     SUCCEEDED = "SUCCEEDED"
     RETRYING = "RETRYING"
@@ -75,6 +76,7 @@ class DunningProcess:
 
         delay = RETRY_DELAYS_DAYS.get(attempt_no, 1)
         next_retry = now +   timedelta(days=delay)
+        next_retry = now + timedelta(days=delay)
         self.attempt_repo.add(invoice.id, attempt_no, "FAILED", result.failure_reason, next_retry)
         return DunningOutcome(DunningState.RETRYING, attempt_no, next_retry)
 
@@ -83,3 +85,4 @@ class DunningProcess:
         if past_due_since is None:
             return False
         return (today - past_due_since).days >= grace_days                                                                                              
+        return (today - past_due_since).days >= grace_days

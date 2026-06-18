@@ -6,8 +6,6 @@ from enum import Enum
 from typing import Optional
 
 from billing_engine.money import Money
-
-
 class InvoiceStatus(str, Enum):
     DRAFT = "DRAFT"
     ISSUED = "ISSUED"
