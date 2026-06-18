@@ -22,3 +22,21 @@ class VATCalculator(TaxCalculator):
         #   - Return TaxBreakdown with one component (f"VAT {percent}%", vat) and total = vat.
         #   - Tip: format the rate as a percentage cleanly.
         raise NotImplementedError("Day 1: implement VATCalculator.apply")
+class VATCalculator(TaxCalculator):
+
+    def __init__(self, rate: Decimal) -> None:
+        if not isinstance(rate, Decimal):
+            raise TypeError("VAT rate must be a Decimal instance")
+        if not (Decimal("0.00") <= rate <= Decimal("1.00")):
+            raise ValueError("VAT rate must be between 0.00 and 1.00")
+        self.rate = rate
+
+    def apply(self, taxable: Money, context: TaxContext) -> TaxBreakdown:
+        vat_amount = taxable * self.rate
+        percentage_str = f"{self.rate * 100}%"
+        
+        return TaxBreakdown(
+            total=vat_amount,
+            components=[(f"VAT {percentage_str}", vat_amount)],
+            rate_summary=f"VAT {percentage_str}"
+        )
