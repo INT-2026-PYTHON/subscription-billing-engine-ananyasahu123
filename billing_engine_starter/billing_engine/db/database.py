@@ -17,6 +17,12 @@ import sqlite3
 from contextlib import contextmanager
 from pathlib import Path
 from typing import Iterator
+from __future__ import annotations
+
+import sqlite3
+from contextlib import contextmanager
+from pathlib import Path
+from typing import Iterator
 
 SCHEMA_PATH = Path(__file__).parent / "schema.sql"
 
