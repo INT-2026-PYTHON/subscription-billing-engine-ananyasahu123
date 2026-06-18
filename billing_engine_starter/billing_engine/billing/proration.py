@@ -75,6 +75,7 @@ class DunningProcess:
             return DunningOutcome(DunningState.FAILED_FINAL, attempt_no, None)
 
         delay = RETRY_DELAYS_DAYS.get(attempt_no, 1)
+        next_retry = now +   timedelta(days=delay)
         next_retry = now + timedelta(days=delay)
         self.attempt_repo.add(invoice.id, attempt_no, "FAILED", result.failure_reason, next_retry)
         return DunningOutcome(DunningState.RETRYING, attempt_no, next_retry)
@@ -83,4 +84,5 @@ class DunningProcess:
     def should_cancel(past_due_since: Optional[date], today: date, grace_days: int = 7) -> bool:
         if past_due_since is None:
             return False
+        return (today - past_due_since).days >= grace_days                                                                                              
         return (today - past_due_since).days >= grace_days
