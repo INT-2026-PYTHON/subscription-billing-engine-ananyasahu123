@@ -10,3 +10,12 @@ class NoTax(TaxCalculator):
     def apply(self, taxable: Money, context: TaxContext) -> TaxBreakdown:
         # TODO Day 1
         raise NotImplementedError("Day 1: implement NoTax.apply")
+class NoTax(TaxCalculator):
+
+    def apply(self, taxable: Money, context: TaxContext) -> TaxBreakdown:
+        zero_tax = Money(0, taxable.currency)
+        return TaxBreakdown(
+            total=zero_tax,
+            components=[],
+            rate_summary="No Tax (0%)"
+        )

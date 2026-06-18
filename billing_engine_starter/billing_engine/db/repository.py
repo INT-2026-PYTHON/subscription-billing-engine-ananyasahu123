@@ -278,6 +278,8 @@ class PaymentAttemptRepository:
         # TODO Day 3.
         raise NotImplementedError("Day 3: implement PaymentAttemptRepository.count_for_invoice")
 def get(self, invoice_id: int) -> Optional[Invoice]:
+
+    def get(self, invoice_id: int) -> Optional[Invoice]:
         with self.db.connect() as conn:
             row = conn.execute("SELECT * FROM invoices WHERE id = ?;", (invoice_id,)).fetchone()
             if not row:
