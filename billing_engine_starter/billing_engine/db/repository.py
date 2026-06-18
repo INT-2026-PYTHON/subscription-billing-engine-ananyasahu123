@@ -277,6 +277,7 @@ class PaymentAttemptRepository:
     def count_for_invoice(self, invoice_id: int) -> int:
         # TODO Day 3.
         raise NotImplementedError("Day 3: implement PaymentAttemptRepository.count_for_invoice")
+def get(self, invoice_id: int) -> Optional[Invoice]:
 
     def get(self, invoice_id: int) -> Optional[Invoice]:
         with self.db.connect() as conn:
